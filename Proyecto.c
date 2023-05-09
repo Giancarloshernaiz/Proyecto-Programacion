@@ -124,7 +124,7 @@ void menu(){
     }
 }
 int main(){
-    setlocale(LC_ALL, "spanish"); //hola prueba
+    setlocale(LC_ALL, "spanish"); //hola prueba onichan
     menu();
 
     return 0;
