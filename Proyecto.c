@@ -12,7 +12,7 @@ struct info {
         char fecha[10];
     };
 
-    // jhosber pasame tu parcial de algoritmo, quiero estudiar
+    // estudia mariquito
 
 char dept[6][20] = {"RRHH", "Consultoria", "Diseño", "Producción", "Calidad", "Distribución"};
 char cargo[6][20] = {"Gerente", "Supervisor", "Analista", "Diseñador", "Desarrollador", "Auditor"};
