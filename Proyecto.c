@@ -124,7 +124,7 @@ void menu(){
     }
 }
 int main(){
-    setlocale(LC_ALL, "spanish");
+    setlocale(LC_ALL, "spanish"); //hola prueba
     menu();
 
     return 0;
