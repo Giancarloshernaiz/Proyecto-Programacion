@@ -12,7 +12,6 @@ struct info {
         char fecha[10];
     };
 
-    // estudia mariquito
 
 char dept[6][20] = {"RRHH", "Consultoria", "Diseño", "Producción", "Calidad", "Distribución"};
 char cargo[6][20] = {"Gerente", "Supervisor", "Analista", "Diseñador", "Desarrollador", "Auditor"};
@@ -126,7 +125,7 @@ void menu(){
     }
 }
 int main(){
-    setlocale(LC_ALL, "spanish"); //hola prueba onichan
+    setlocale(LC_ALL, "spanish"); 
     menu();
 
     return 0;
