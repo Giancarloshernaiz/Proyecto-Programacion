@@ -40,21 +40,22 @@ void ingresar(int n){
             scanf("%s", trabajadores[band].nombre);
             printf("Apellido: ");
             scanf("%s", trabajadores[band].apellido);
-            printf("Departamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseño \n[4] Producción \n[5] Calidad \n[6] Distribución \n");
-            scanf("%d", &trabajadores[band].departamento);
-                if (trabajadores[band].departamento < 1 && trabajadores[band].departamento > 6){
-                    do{
+            do{
+                printf("Departamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseño \n[4] Producción \n[5] Calidad \n[6] Distribución \n");
+                scanf("%d", &trabajadores[band].departamento);
+                    if (trabajadores[band].departamento < 1 && trabajadores[band].departamento > 6)
+                    {
                         printf("¡El número no corresponde a ningún departamento!");
-                    }while(trabajadores[band].departamento < 1 && trabajadores[band].departamento > 6);
-                }
-            printf("Cargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseñador \n[5] Desarrollador \n[6] Auditor \n");
-            scanf("%d", &trabajadores[band].cargo);
-                if (trabajadores[band].cargo < 1 && trabajadores[band].cargo > 6){
-                    do{
+                    }
+            }while(trabajadores[band].departamento < 1 && trabajadores[band].departamento > 6);
+            do{
+                printf("Cargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseñador \n[5] Desarrollador \n[6] Auditor \n");
+                scanf("%d", &trabajadores[band].cargo);
+                if (trabajadores[band].cargo < 1 && trabajadores[band].cargo > 6)
+                {   
                         printf("¡El número no corresponde a ningún cargo!");
-                    }while(trabajadores[band].cargo < 1 && trabajadores[band].cargo > 6);
                 }
-                
+             }while(trabajadores[band].cargo < 1 && trabajadores[band].cargo > 6);   
             printf("Salario: ");    
             scanf("%d", &trabajadores[band].salario);
             printf("Fecha(dd/MM/aaaa): ");
@@ -122,6 +123,17 @@ void menu(){
             default:
                 printf("¡Esa opción no existe!");
             }
+    }
+}
+void eliminar(int cedula, int n){
+    int p;
+    struct info trabajadores[n];
+    for (p= 0; p < n ;p++){
+        if (cedula == trabajadores[p].cedula)
+        {
+            
+                    
+        }
     }
 }
 int main(){
