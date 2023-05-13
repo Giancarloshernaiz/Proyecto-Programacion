@@ -80,7 +80,7 @@ void ingresar(int n){
 
     }
 }
-void consultar(int cedula, int n){
+void consultar(int cedula, int n){  //decidir si eliminar este o el que mandaron a transcribir
     int i;
     struct info trabajadores[n];
     for (i= 0; i < n ;i++){
@@ -141,4 +141,54 @@ int main(){
     menu();
 
     return 0;
+}
+
+void consulta_cedula(){
+    char dato[10];
+    int i = 0;
+    FILE *archivo;
+    if((archivo = fopen("trabajadores.in", "a+")) == NULL){
+        printf("Error al abrir el archivo");
+    }else{
+        while(feof(archivo)==0){
+            fscanf(archivo, "%s", dato);
+            if(i >= 6){
+                printf("\n");
+                i=0;
+            }else{
+                printf("%s", dato);
+                i+=1;
+            }
+        }
+    }
+    fclose(archivo);
+}
+
+void consultar2(){ //revisar si se va a usar el primero o este.
+    int op, band = 0;
+    do {
+        printf("\nMETODO DE CONSULTA: \n[1]. Cedula \n[2]. Departamento \n[3]. Cargo \n[4]. Sueldo [5]. Volver \n");
+        scanf("%d", &op);
+        switch (op){
+        case 1 :
+            consulta_cedula();
+            break;
+        case 2 :
+        break;
+
+        case 3 :
+        break;
+
+        case 4 : 
+        break;
+
+        case 5 :
+        band = 1; 
+        break;
+
+        default:
+        printf("La opcion seleccionada es incorrecta!!");
+            break;
+        }
+    }while (band == 0);
 }
