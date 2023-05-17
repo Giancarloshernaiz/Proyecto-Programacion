@@ -21,16 +21,85 @@ char cargo[6][20] = {"Gerente", "Supervisor", "Analista", "Diseñador", "Desarrol
 
 int validar_numero(char num[]);
 
-void eliminar(int cedula, int n){
-    int p;
-    struct info trabajadores[n];
-    for (p= 0; p < n ;p++){
-        if (cedula == trabajadores[p].cedula)
-        {
-            
-                    
+void eliminar(){
+    int i, k,indice=-1, cedula,numero, op, band = 0;
+    char val[20], descarte[20], fecha[12],confirmacion[10]; 
+    FILE *archivo, *leer, *archivof, *leerf;
+    
+
+    if((leer = fopen("trabajadores.in", "r")) == NULL){
+        printf("¡Error al abrir el archivo!");
+    }else{
+        k = 0;
+        while(!feof(leer)){
+            fscanf(leer,"%s %s %s %s %s %s %s\n", descarte,descarte,descarte,descarte,descarte,descarte,descarte);
+            k += 1;
         }
     }
+    fclose(leer);
+
+    struct info trabajadores[k];
+    if((leer = fopen("trabajadores.in", "r")) == NULL){
+        printf("¡Error al abrir el archivo!");
+    }else{
+        i = 0;
+        while(!feof(leer)){
+            fscanf(leer,"%d", &trabajadores[i].cedula);
+            fscanf(leer,"%s", trabajadores[i].nombre);
+            fscanf(leer,"%s", trabajadores[i].apellido);
+            fscanf(leer,"%s", trabajadores[i].departamento);
+            fscanf(leer,"%s", trabajadores[i].cargo);
+            fscanf(leer,"%s", trabajadores[i].fecha);
+            fscanf(leer,"%d", &trabajadores[i].salario);
+            i += 1;
+        }
+    }
+    fclose(leer);//lERR estructura activa
+
+
+    if(((archivo = fopen("trabajadores.in", "w")) == NULL)||(archivof = fopen("extrabajadores.txt", "a+")) == NULL){
+        printf("¡Error al abrir el archivo!");
+    }else{
+        printf("\nIndique la cédula del trabajador: ");
+        do{
+            scanf("%s", val);
+            numero = validar_numero(val);
+        }while(numero == 0);
+        cedula = atoi(val);
+        for (i = 0; i < k; i++)
+		{
+            if (trabajadores[i].cedula == cedula)
+			{
+				printf("Seguro desea eliminar al trabajador:");
+				printf("\n%d %s %s %s %s %s %d", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
+            	printf("\nSeleccione [si]-para Eliminar o [no] para volver al menu principal:");
+				scanf("%s",confirmacion);
+				do
+				{
+					if((strcmp(confirmacion,"si")!=0)&&(strcmp(confirmacion,"no")!=0))
+					{
+						printf("Ingreso un dato incorrecto, vuelva a intentarlo:");
+						scanf("%s",confirmacion);	
+					}	
+						else if(strcmp(confirmacion,"si")==0)
+						{
+							indice=i;
+						}
+				}while((strcmp(confirmacion,"si")!=0)&&(strcmp(confirmacion,"no")!=0));
+         		}
+	           	if(i!=indice)
+				{
+	           		fprintf(archivo,"%d %s %s %s %s %s %d\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
+	        	}
+				else
+				{
+					fprintf(archivof,"%d %s %s %s %s %s %d\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);	
+					
+				}
+   		}
+    fclose(archivo);
+    fclose(archivof);
+}
 }
 
 void modificar(){
@@ -450,7 +519,7 @@ void menu(){
                 modificar();
                 break;
             case 4:
-                //eliminar();
+                eliminar();
                 break;
             case 5:
                 x = 1; 
