@@ -22,7 +22,7 @@ char motivo_despido[4][20] ={"Traslado", "Renuncia", "Despido", "Otros"};
 int validar_numero(char num[]);
 
 void eliminar(){
-    int i, k,indice=-1, cedula,numero, op, bandf;
+    int i, k,indice=-1, cedula,numero, op, bandf,re_menu=0;
     char val[20], descarte[20], fecha[12],confirmacion[10],fecha_despido[12],despido[20]; 
     FILE *archivo, *leer, *archivof, *leerf;
     
@@ -65,9 +65,9 @@ void eliminar(){
             scanf("%s", val);
             numero = validar_numero(val);
         }while(numero == 0);
-        cedula = atoi(val);
-        for(i = 0; i < k; i++){
-        			if(trabajadores[i].cedula == cedula){     		
+        cedula = atoi(val); //validar cedula
+			for(i = 0; i < k; i++){ //bucle para buscar cedula y confirmacion de eliminacion
+        		if(trabajadores[i].cedula == cedula){     		
 						printf("Seguro desea eliminar al trabajador:");
 						printf("\n%d %s %s %s %s %s %d", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
 		            	printf("\nSeleccione [si]-para Eliminar o [no] para volver al menu principal:");
@@ -82,15 +82,16 @@ void eliminar(){
 							if(strcmp(confirmacion,"si")==0)
 								{
 									indice=i;
+								}else{
+									re_menu=1;
 								}
-					}
-				}
-					//prueba hora 
-					if(strcmp(confirmacion,"si")==0){
+				}//cierre condicional cedula	
+			}// cierre for
+					if((strcmp(confirmacion,"si")==0)&&(re_menu==0)){ //codicional para continuar con la eliminacion
 					
-						do {
+						do { // bucle de horas
 		                bandf = 0;
-		                printf("Fecha de retiro (dia-mes-año): ");
+		                printf("Fecha de retiro (dia-mes-año): "); //ingrese fecha retiro
 		                scanf("%s", val);
 		                char *dia = strtok(val, "-/ ");
 		                char *mes = strtok(NULL, "-/ ");
@@ -151,7 +152,7 @@ void eliminar(){
 		                strcat(fecha_despido, "/");
 		                strcat(fecha_despido, anio);
 		            	}while(bandf == 1);
-			//motivo
+		            		/*Motivo de eliminacion de empleado*/
 						printf("Motivo de eliminacion:\n[1]-Traslado\n[2]-Renuncia\n[3]-Despido\n[4]-Otros\nSeleccione una opcion:");                                        
 		            	do{
 		                	do{
@@ -164,24 +165,25 @@ void eliminar(){
 		            		}
 						}while(numero < 1 || numero > 4);
 		            	strcpy(despido,motivo_despido[numero-1]);
-        	}//cierre if-encontro cedula
-            			
-        
-				//**prueba hora
-         		
-         		for(i=0;i<k;i++)//buble para escribir
-				{
+        	for(i=0;i<k;i++){//buble para escribir
 				 
-	           		if(i!=indice)
-					{
+	           		if(i!=indice){
 		           		fprintf(archivo,"%d %s %s %s %s %s %d\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
-		        	}
-					else
-					{
-						fprintf(archivof,"%d %s %s %s %s %s %d motivo: %s fecha de %s es: %s\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario,despido,despido,fecha_despido);	
-						
+		        	}else{
+						fprintf(archivof,"%d %s %s %s %s %s %d %s %s\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario,despido,fecha_despido);		
 					}
 				}
+            system("cls");			
+        	printf("\n¡Se ha eliminado los datos exitosamente!\n");
+			}else{
+			for(i=0;i<k;i++){//buble para escribir
+				 
+	           		if(i!=indice){
+		           		fprintf(archivo,"%d %s %s %s %s %s %d\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
+		        	}
+				}		
+				system("cls");
+			}	
 	}
     fclose(archivo);
     fclose(archivof);
