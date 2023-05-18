@@ -18,7 +18,7 @@ struct info {
 
 char dept[6][20] = {"RRHH", "Consultoria", "Diseño", "Producción", "Calidad", "Distribución"};
 char cargo[6][20] = {"Gerente", "Supervisor", "Analista", "Diseñador", "Desarrollador", "Auditor"};
-char motivo_despido[4][20] ={"Traslado", "Renuncia", "Despido", "Otros"};
+char motivo_despido[4][20] = {"Traslado", "Renuncia", "Despido", "Otros"};
 int validar_numero(char num[]);
 
 void eliminar(){
