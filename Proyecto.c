@@ -21,7 +21,6 @@ char cargo[6][20] = {"Gerente", "Supervisor", "Analista", "Diseï¿½ador", "Desarr
 char motivo_despido[4][20] = {"Traslado", "Renuncia", "Despido", "Otros"};
 int validar_numero(char num[]);
 
-
 int consulta_cedula(int cedula){
     char dato [20]; 
     FILE *archivo;
@@ -217,7 +216,7 @@ void eliminar(){
     }
 }
 
-void modificar(){
+int modificar(){
     int i, k, cedula,numero, op, band = 0;
     char val[20], descarte[20], fecha[12]; 
     FILE *archivo, *leer;
@@ -251,41 +250,57 @@ void modificar(){
         }
     }
     fclose(leer);
-
-
+    
+    printf("\nIndique la cédula del trabajador: ");
+    do{
+        scanf("%s", val);
+        numero = validar_numero(val);
+    }while(numero == 0);
+    cedula = atoi(val);
+    for (i = 0; i < k; i++){
+        if (trabajadores[i].cedula == cedula){
+            band = 1;
+            break;
+        }
+    }
+    if (band == 0){ printf("\n¡La CI indicada no estï¿½ asociada a ningï¿½n trabajador de la empresa!\n"); return 0;}
+    band = 0;
     if((archivo = fopen("trabajadores.in", "w")) == NULL){
         printf("ï¿½Error al abrir el archivo!");
     }else{
-        printf("\nIndique la cï¿½dula del trabajador: ");
-        do{
-            scanf("%s", val);
-            numero = validar_numero(val);
-        }while(numero == 0);
-        cedula = atoi(val);
         for (i = 0; i < k; i++){
             if (trabajadores[i].cedula == cedula){
                 do{
-                    printf("\nIndique el atributo a modificar: \n");
-                    printf("[1] Nombre\n[2] Apellido \n[3] Departamento \n[4] Cargo \n[5] Fecha de ingreso \n[6] Salario\n[7] Salir\n");
+                    printf("\n+--- MÉTODO MODIFICAR ---+\n");
+                    printf("|                        |\n");
+                    printf("| [1] Nombre             |\n");
+                    printf("| [2] Apellido           |\n");
+                    printf("| [3] Departamento       |\n");
+                    printf("| [4] Cargo              |\n");
+                    printf("| [5] Fecha de ingreso   |\n");
+                    printf("| [6] Salario            |\n");
+                    printf("| [7] Volver             |\n");
+                    printf("|                        |\n");
+                    printf("+------------------------+\n");
+                    printf("Opción: ");
                     do{
                         scanf("%s", val);
                         numero = validar_numero(val);
                     }while(numero == 0);
                     op = atoi(val);
                     switch (op){
-                    
                         case 1:
-                            printf("\nNombre: \n");
+                            printf("\nNombre: ");
                             scanf("%s", trabajadores[i].nombre);
                             band = 1;
                             break; 
                         case 2:
-                            printf("\nApellido: \n");
+                            printf("\nApellido: ");
                             scanf("%s", trabajadores[i].apellido);
                             band = 1;
                             break; 
                         case 3:
-                            printf("Departamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseï¿½o \n[4] Producciï¿½n \n[5] Calidad \n[6] Distribuciï¿½n \n");
+                            printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseï¿½o \n[4] Producciï¿½n \n[5] Calidad \n[6] Distribuciï¿½n \n");
                             do{
                                 do{
                                     scanf("%s", val);
@@ -314,7 +329,7 @@ void modificar(){
                             break;  
                         case 5:
                             do {
-                                printf("Fecha de ingreso (dia-mes-aï¿½o): ");
+                                printf("\nFecha de ingreso (dia-mes-aï¿½o): ");
                                 band = 0;
                                 scanf("%s", val);
                                 char *dia = strtok(val, "-/");
@@ -383,7 +398,7 @@ void modificar(){
                             band = 1;
                             break; 
                         case 6: 
-                            printf("Salario: $");    
+                            printf("\nSalario: $");    
                             do{
                                 scanf("%s", val);
                                 numero = validar_numero(val);
@@ -395,24 +410,34 @@ void modificar(){
                             band = 1;
                             break;
                         default:
-                            printf("ï¿½Esa opciï¿½n no existe!");
+                            printf("¡Esa opción no existe!");
                             break;
                     }
                 }while(band == 0);
             }
+            
             fprintf(archivo,"%d %s %s %s %s %s %d\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
         }
-
         fclose(archivo);
-       
+        printf("\n¡Se ha modificado exitosamente el archivo!\n");
     }
+    return 0;
 }
 
 void consultar(){ 
     int op, cedula, numero, band = 0;
     char val[20];
     do {
-        printf("\nMï¿½TODO DE CONSULTA: \n[1] Cï¿½dula \n[2] Departamento \n[3] Cargo \n[4] Sueldo \n[5] Volver \n");
+        printf("\n+-- MÉTODO DE CONSULTA --+\n");
+        printf("|                        |\n");
+        printf("| [1] Cédula             |\n");
+        printf("| [2] Departamento       |\n");
+        printf("| [3] Cargo              |\n");
+        printf("| [4] Sueldo             |\n");
+        printf("| [5] Volver             |\n");
+        printf("|                        |\n");
+        printf("+------------------------+\n");
+        printf("Opción: ");
         do{
             scanf("%s", val);
             numero = validar_numero(val);
@@ -592,10 +617,18 @@ void ingresar(){
 void menu(){
     int numero, op, x = 0;
     char val [20];
-    printf("\n¡Bienvenido al registro de trabajadores de la empresa Future! \n");
+    printf("\n¡Bienvenido al registro de trabajadores de la empresa Future C.A.! \n");
     while (x == 0) {
-        printf("\nSeleccione una opción\n");
-        printf("[1] Ingresar \n[2] Consultar \n[3] Modificar \n[4] Eliminar \n[5] Salir\n");
+        printf("\n+--------- MENÚ ---------+\n");
+        printf("|                        |\n");
+        printf("| [1] Ingresar           |\n");
+        printf("| [2] Consultar          |\n");
+        printf("| [3] Modificar          |\n");
+        printf("| [4] Eliminar           |\n");
+        printf("| [5] Salir              |\n");
+        printf("|                        |\n");
+        printf("+------------------------+\n");
+        printf("Opción: "); 
         do{
             scanf("%s", val);
             numero = validar_numero(val);
