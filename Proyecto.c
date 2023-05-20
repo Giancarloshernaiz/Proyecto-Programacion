@@ -30,11 +30,7 @@ void eliminar(){
     if((leer = fopen("trabajadores.in", "r")) == NULL){
         printf("¡Error al abrir el archivo!");
     }else{
-        k = 0;
-        while(!feof(leer)){
-            fscanf(leer,"%s %s %s %s %s %s %s\n", descarte,descarte,descarte,descarte,descarte,descarte,descarte);
-            k += 1;
-        }
+    	k=comprobar_elementos(&leer);
     }
     fclose(leer);
 
@@ -60,6 +56,7 @@ void eliminar(){
     if(((archivo = fopen("trabajadores.in", "w")) == NULL)||(archivof = fopen("extrabajadores.txt", "a+")) == NULL){
         printf("¡Error al abrir el archivo!");
     }else{
+    	system("cls");
         printf("\nIndique la cédula del trabajador: ");
         do{
             scanf("%s", val);
@@ -199,11 +196,7 @@ void modificar(){
     if((leer = fopen("trabajadores.in", "r")) == NULL){
         printf("¡Error al abrir el archivo!");
     }else{
-        k = 0;
-        while(!feof(leer)){
-            fscanf(leer,"%s %s %s %s %s %s %s\n", descarte,descarte,descarte,descarte,descarte,descarte,descarte);
-            k += 1;
-        }
+        k =comprobar_elementos(&leer); //leer cada elemento para saber la cantidad de lineas
     }
     fclose(leer);
 
@@ -404,8 +397,117 @@ int consulta_cedula(int cedula){
     return 0;
 }
 
+int consulta_sueldo(int sueldo_f){
+    char dato [20],descarte[20];
+	int band_f=0,i,k; 
+    FILE *archivo;
+    struct info trabajadores;
+        if((archivo = fopen("trabajadores.in", "r")) == NULL){
+        printf("¡Error al abrir el archivo!");
+    }else{
+        k=comprobar_elementos(&archivo);
+    fclose(archivo);
+	}
+	if((archivo = fopen("trabajadores.in", "r")) == NULL){
+        printf("¡Error al abrir el archivo!");
+    }else{
+        		for(i=0;i<k;i++){    
+                	fscanf(archivo, "%d", &trabajadores.cedula);
+                    fscanf(archivo, "%s", trabajadores.nombre);
+                    fscanf(archivo, "%s", trabajadores.apellido);
+                    fscanf(archivo, "%s", trabajadores.departamento);
+                    fscanf(archivo, "%s", trabajadores.cargo);
+                    fscanf(archivo, "%s", trabajadores.fecha);
+                    fscanf(archivo, "%d", &trabajadores.salario);
+					if (trabajadores.salario == sueldo_f){
+                    printf("\n%d %s %s %s %s %s %d\n",trabajadores.cedula,trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
+                	band_f=1;
+					}
+				}		
+		}
+   		 	if(band_f==1){
+   		 		fclose(archivo);
+				return 1;
+			}
+    fclose(archivo);
+    printf("\n¡el sueldo indicado no está asociada a ningún trabajador de la empresa!\n");
+    return 0;
+}
+int consulta_departamento(char departamento_f[]){
+    char dato [20];
+	int band_f=0,i,j; 
+    FILE *archivo;
+    struct info trabajadores;
+        if((archivo = fopen("trabajadores.in", "r")) == NULL){
+        printf("¡Error al abrir el archivo!");
+    }else{
+        j=comprobar_elementos(&archivo);
+    fclose(archivo);
+	}
+	if((archivo = fopen("trabajadores.in", "r")) == NULL){
+        printf("¡Error al abrir el archivo!");
+    }else{
+        		for(i=0;i<j;i++){    
+                	fscanf(archivo, "%d", &trabajadores.cedula);
+                    fscanf(archivo, "%s", trabajadores.nombre);
+                    fscanf(archivo, "%s", trabajadores.apellido);
+                    fscanf(archivo, "%s", trabajadores.departamento);
+                    fscanf(archivo, "%s", trabajadores.cargo);
+                    fscanf(archivo, "%s", trabajadores.fecha);
+                    fscanf(archivo, "%d", &trabajadores.salario);
+					if ((strcmp(trabajadores.departamento,departamento_f)==0)){
+                    	printf("\n%d %s %s %s %s %s %d\n",trabajadores.cedula,trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
+                		band_f=1;
+					}
+				}		
+		}
+   	if(band_f==1){
+   		fclose(archivo);
+		return 1;
+	}
+    fclose(archivo);
+    printf("\n¡el Departamento indicado no está asociada a ningún trabajador de la empresa!\n");
+    return 0;
+}
+int consulta_cargo(char cargo_f[]){
+    char dato [20];
+	int band_f=0,i,j; 
+    FILE *archivo;
+    struct info trabajadores;
+        if((archivo = fopen("trabajadores.in", "r")) == NULL){
+        printf("¡Error al abrir el archivo!");
+    }else{
+        j=comprobar_elementos(&archivo);
+    fclose(archivo);
+	}
+	if((archivo = fopen("trabajadores.in", "r")) == NULL){
+        printf("¡Error al abrir el archivo!");
+    }else{
+        		for(i=0;i<j;i++){    
+                	fscanf(archivo, "%d", &trabajadores.cedula);
+                    fscanf(archivo, "%s", trabajadores.nombre);
+                    fscanf(archivo, "%s", trabajadores.apellido);
+                    fscanf(archivo, "%s", trabajadores.departamento);
+                    fscanf(archivo, "%s", trabajadores.cargo);
+                    fscanf(archivo, "%s", trabajadores.fecha);
+                    fscanf(archivo, "%d", &trabajadores.salario);
+					if ((strcmp(trabajadores.cargo,cargo_f)==0)){
+                    	printf("\n%d %s %s %s %s %s %d\n",trabajadores.cedula,trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
+                		band_f=1;
+					}
+				}		
+		}
+   	if(band_f==1){
+   		fclose(archivo);
+		return 1;
+	}
+    fclose(archivo);
+    printf("\n¡el Cargo indicado no está asociada a ningún trabajador de la empresa!\n");
+    return 0;
+}
+
 void consultar(){ 
-    int op, cedula, numero, band = 0;
+    int op, cedula, numero, band = 0,sueldo,departamento;
     char val[20];
     do {
         printf("\nMÉTODO DE CONSULTA: \n[1] Cédula \n[2] Departamento \n[3] Cargo \n[4] Sueldo \n[5] Volver \n");
@@ -416,6 +518,7 @@ void consultar(){
         op = atoi(val);
         switch (op){
         case 1 :
+        	system("cls");
             printf("\nIndique la cédula a consultar: ");
             do{
                 scanf("%s", val);
@@ -425,12 +528,46 @@ void consultar(){
             consulta_cedula(cedula);
             break;
         case 2 :
+        	system("cls");
+            do{
+				printf("\nIndique el Departamento a consultar: ");
+				do{
+					printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseño \n[4] Producción \n[5] Calidad \n[6] Distribución \n");
+					do{
+                		scanf("%s", val);
+                		numero = validar_numero(val);
+            		}while(numero == 0);
+            		departamento = atoi(val);
+            	}while((departamento<1)||(departamento>6));
+				band=consulta_departamento(dept[departamento-1]);
+			}while(band==0);
             break;
-
         case 3 :
+            system("cls");
+            do{
+				printf("\nIndique el Cargo a consultar: ");
+				do{
+					printf("\nCargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseñador \n[5] Desarrollador \n[6] Auditor \n");
+					do{
+                		scanf("%s", val);
+                		numero = validar_numero(val);
+            		}while(numero == 0);
+            		numero = atoi(val);
+            	}while((numero<1)||(numero>6));
+				band=consulta_cargo(cargo[numero-1]);
+			}while(band==0);
             break;
-
-        case 4 : 
+        case 4 :
+        	system("cls");
+            do{
+			printf("\nIndique el sueldo a consultar: ");
+				do{
+                	scanf("%s", val);
+                	numero = validar_numero(val);
+            	}while(numero == 0);
+            	sueldo = atoi(val);
+            	band=consulta_sueldo(sueldo);
+			}while(band==0);
             break;
 
         case 5 :
@@ -624,6 +761,15 @@ int main(){
     SetConsoleOutputCP(1252);
     menu();
     return 0;
+}
+int comprobar_elementos(FILE **archivo_f){
+        int z = 0;
+        char descarte[20];
+        while(!feof(*archivo_f)){
+            fscanf(*archivo_f,"%s %s %s %s %s %s %s\n", descarte,descarte,descarte,descarte,descarte,descarte,descarte);
+            z += 1;
+        }
+    return z;
 }
 
 int validar_numero(char num[]){
