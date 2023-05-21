@@ -41,7 +41,7 @@ void menu(){
     char val [20];
     printf("\nùBienvenido al registro de trabajadores de la empresa Future C.A.! \n");
     while (x == 0) {
-        printf("\n+--------- MENù ---------+\n");
+        printf("\n+--------- MENù -----------+\n");
         printf("|                          |\n");
         printf("| [1] Ingresar             |\n");
         printf("| [2] Consultar            |\n");
@@ -116,7 +116,7 @@ void ingresar(){
         scanf("%s", trabajadores.nombre);
         printf("Apellido: ");
         scanf("%s", trabajadores.apellido);
-        printf("Departamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseùo \n[4] Produccion \n[5] Calidad \n[6] Distribucion \n");
+        printf("Departamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseùo \n[4] Produccion \n[5] Calidad \n[6] Distribucion \nOpcion: ");
         do{
             do{
                 scanf("%s", val);
@@ -127,7 +127,7 @@ void ingresar(){
                 printf("El numero no corresponde a ningun departamento!\nIntente de nuevo: ");
         }while(numero < 1 || numero > 6);
         strcpy(trabajadores.departamento, dept[numero-1]);
-        printf("Cargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseùador \n[5] Desarrollador \n[6] Auditor \n");
+        printf("Cargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseùador \n[5] Desarrollador \n[6] Auditor \nOpcion: ");
         do{
             do{
                 scanf("%s", val);
@@ -167,7 +167,7 @@ void ingresar(){
                         }
                     }else if (atoi(mes) % 2 == 0){
                         if (atoi(dia) < 1 || atoi(dia) > 31){
-                            printf("!No cumpe con el formato de fecha correcto!\n");
+                            printf("!No cumple con el formato de fecha correcto!\n");
                             band = 1;
                         }
                     }else{
@@ -252,7 +252,7 @@ void consultar(){
             system("cls");
             do{
 				printf("\nIndique el Departamento a consultar: ");
-				printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseùo \n[4] Producciùn \n[5] Calidad \n[6] Distribuciùn \n");
+				printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseùo \n[4] Producciùn \n[5] Calidad \n[6] Distribuciùn \nOpcion: ");
 				do{
                 scanf("%s", val);
                         numero = validar_numero(val);
@@ -265,7 +265,7 @@ void consultar(){
             system("cls");
 			do{
 				printf("\nIndique el Cargo a consultar: ");
-				printf("\nCargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseùador \n[5] Desarrollador \n[6] Auditor \n");
+				printf("\nCargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseùador \n[5] Desarrollador \n[6] Auditor \nOpcion: ");
 				do{
                 	scanf("%s", val);
                 	numero = validar_numero(val);
@@ -433,7 +433,7 @@ int modificar(){
                                             }
                                         }else if (atoi(mes) % 2 == 0){
                                             if (atoi(dia) < 1 || atoi(dia) > 31){
-                                                printf("!No cumpe con el formato de fecha correcto!\n");
+                                                printf("!No cumple con el formato de fecha correcto!\n");
                                                 band = 1;
                                             }
                                         }else{
@@ -591,7 +591,7 @@ void eliminar(){
                                 }
                             }else if (atoi(mes) % 2 == 0){
                                 if (atoi(dia) < 1 || atoi(dia) > 31){
-                                    printf("!No cumpe con el formato de fecha correcto!\n");
+                                    printf("!No cumple con el formato de fecha correcto!\n");
                                     bandf = 1;
                                 }
                             }else{
@@ -630,7 +630,7 @@ void eliminar(){
                     strcat(fecha_despido, anio);
                 }while(bandf == 1);
                             /*Motivo de eliminacion de empleado*/
-                printf("Motivo de eliminacion:\n[1]-Traslado\n[2]-Renuncia\n[3]-Despido\n[4]-Otros\nSeleccione una opcion:");                                        
+                printf("Motivo de eliminacion:\n[1]-Traslado\n[2]-Renuncia\n[3]-Despido\n[4]-Otros\nSeleccione una opcion: ");                                        
                 do{
                     do{
                     scanf("%s", val);
@@ -642,7 +642,7 @@ void eliminar(){
                     }
                 }while(numero < 1 || numero > 4);
                 strcpy(despido,motivo_despido[numero-1]);
-                for(i=0;i<k;i++){//buble para escribir
+                for(i=0;i<k;i++){//bucle para escribir
                     if(i!=indice){
                         fprintf(archivo,"%d %s %s %s %s %s %ld\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
                     }else{
