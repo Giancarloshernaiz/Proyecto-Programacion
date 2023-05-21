@@ -23,7 +23,7 @@ struct info {
         char departamento[20];
         char cargo[20];
         char fecha[12];
-        int salario;
+        long salario;
     };
 char dept[6][20] = {"RRHH", "Consultoria", "Diseño", "Produccion", "Calidad", "Distribucion"};
 char cargo[6][20] = {"Gerente", "Supervisor", "Analista", "Diseñador", "Desarrollador", "Auditor"};
@@ -212,12 +212,11 @@ void ingresar(){
         numero = validar_numero(val);
         }while(numero == 0);
         trabajadores.salario = atoi(val);
-        fprintf(arch,"%d %s %s %s %s %s %d\n", trabajadores.cedula, trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
+        fprintf(arch,"%d %s %s %s %s %s %ld\n", trabajadores.cedula, trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
         fclose(arch);
         printf("\n!Se han registrado los datos exitosamente!\n");
     }
 }
-
 
 void consultar(){ 
     int op, cedula, numero, band = 0,sueldo,departamento;
@@ -250,41 +249,40 @@ void consultar(){
             consulta_cedula(cedula);
             break;
         case 2 :
-        	system("cls");
+            system("cls");
             do{
-				printf("\nIndique el Departamento a consultar: ");
-				printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseño \n[4] Producción \n[5] Calidad \n[6] Distribución \n");
-				do{
+                printf("\nIndique el Departamento a consultar: ");
+                printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseño \n[4] Producción \n[5] Calidad \n[6] Distribución \n");
+                do{
                 scanf("%s", val);
-                		numero = validar_numero(val);
-            	}while(numero == 0);
-            		departamento = atoi(val);
-            	}while((departamento<1)||(departamento>6));
-				band=consulta_departamento(dept[departamento-1]);
+                        numero = validar_numero(val);
+                }while(numero == 0);
+                    departamento = atoi(val);
+                }while((departamento<1)||(departamento>6));
+                band=consulta_departamento(dept[departamento-1]);
             break;
         case 3 :
             system("cls");
-			do{
-				printf("\nIndique el Cargo a consultar: ");
-				printf("\nCargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseñador \n[5] Desarrollador \n[6] Auditor \n");
-				do{
-                	scanf("%s", val);
-                	numero = validar_numero(val);
-            	}while(numero == 0);
-            	numero = atoi(val);
+            do{
+                printf("\nIndique el Cargo a consultar: ");
+                printf("\nCargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseñador \n[5] Desarrollador \n[6] Auditor \n");
+                do{
+                    scanf("%s", val);
+                    numero = validar_numero(val);
+                }while(numero == 0);
+                numero = atoi(val);
             }while((numero<1)||(numero>6));
-				band=consulta_cargo(cargo[numero-1]);
+                band=consulta_cargo(cargo[numero-1]);
             break;
         case 4 :
-        	system("cls");
-				do{
-					printf("\nIndique el sueldo a consultar: ");
-                	scanf("%s", val);
-                	numero = validar_numero(val);
-            	}while(numero == 0);
-            	sueldo = atoi(val);
-            	band=consulta_sueldo(sueldo);
-			;
+            system("cls");
+                do{
+                    printf("\nIndique el sueldo a consultar: ");
+                    scanf("%s", val);
+                    numero = validar_numero(val);
+                }while(numero == 0);
+                sueldo = atoi(val);
+                band = consulta_sueldo(sueldo);
             break;
 
         case 5 :
@@ -299,10 +297,9 @@ void consultar(){
     
 }
 
-
 int modificar(){
     int i, k, cedula,numero, op, band = 0;
-    char val[20], descarte[20], fecha[12]; 
+    char val[20], fecha[12]; 
     FILE *archivo, *leer;
     
 
@@ -325,7 +322,7 @@ int modificar(){
             fscanf(leer,"%s", trabajadores[i].departamento);
             fscanf(leer,"%s", trabajadores[i].cargo);
             fscanf(leer,"%s", trabajadores[i].fecha);
-            fscanf(leer,"%d", &trabajadores[i].salario);
+            fscanf(leer,"%ld", &trabajadores[i].salario);
             i += 1;
         }
     }
@@ -496,7 +493,7 @@ int modificar(){
                 }while(band == 0);
             }
             
-            fprintf(archivo,"%d %s %s %s %s %s %d\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
+            fprintf(archivo,"%d %s %s %s %s %s %ld\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
         }
         fclose(archivo);
         printf("\n¡Se ha modificado exitosamente el archivo!\n");
@@ -504,10 +501,9 @@ int modificar(){
     return 0;
 }
 
-
 void eliminar(){
     int i, k,indice=-1, cedula,numero, bandf,re_menu=0;
-    char val[20], descarte[20],confirmacion[10],fecha_despido[12],despido[20]; 
+    char val[20], confirmacion[10],fecha_despido[12],despido[20]; 
     FILE *archivo, *leer, *archivof;
     
     
@@ -530,7 +526,7 @@ void eliminar(){
             fscanf(leer,"%s", trabajadores[i].departamento);
             fscanf(leer,"%s", trabajadores[i].cargo);
             fscanf(leer,"%s", trabajadores[i].fecha);
-            fscanf(leer,"%d", &trabajadores[i].salario);
+            fscanf(leer,"%ld", &trabajadores[i].salario);
             i += 1;
         }
     }
@@ -648,9 +644,9 @@ void eliminar(){
                 strcpy(despido,motivo_despido[numero-1]);
                 for(i=0;i<k;i++){//buble para escribir
                     if(i!=indice){
-                        fprintf(archivo,"%d %s %s %s %s %s %d\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
+                        fprintf(archivo,"%d %s %s %s %s %s %ld\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
                     }else{
-                        fprintf(archivof,"%d %s %s %s %s %s %d %s %s\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario,despido,fecha_despido);		
+                        fprintf(archivof,"%d %s %s %s %s %s %ld %s %s\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario,despido,fecha_despido);		
                     }
                 }
                 system("cls");
@@ -658,7 +654,7 @@ void eliminar(){
                 }else{
                     for(i=0;i<k;i++){//buble para escribir
                         if(i!=indice){
-                            fprintf(archivo,"%d %s %s %s %s %s %d\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
+                            fprintf(archivo,"%d %s %s %s %s %s %ld\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
                         }
                     }
                 system("cls");
@@ -668,8 +664,6 @@ void eliminar(){
         fclose(archivof);
     }
 }
-
-
 
 int consulta_cedula(int cedula){
     char dato [20]; 
@@ -687,8 +681,8 @@ int consulta_cedula(int cedula){
                     fscanf(archivo, "%s", trabajadores.departamento);
                     fscanf(archivo, "%s", trabajadores.cargo);
                     fscanf(archivo, "%s", trabajadores.fecha);
-                    fscanf(archivo, "%d", &trabajadores.salario);
-                    printf("\n%s %s %d %s %s %s %d\n", trabajadores.nombre, trabajadores.apellido, trabajadores.cedula, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
+                    fscanf(archivo, "%ld", &trabajadores.salario);
+                    printf("\n%s %s %d %s %s %s %ld\n", trabajadores.nombre, trabajadores.apellido, trabajadores.cedula, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
                     return 1;
                 }
             }
@@ -698,9 +692,7 @@ int consulta_cedula(int cedula){
     return 0;
 }
 
-
 int consulta_departamento(char departamento_f[]){
-    char dato [20];
 	int band_f=0,i,j; 
     FILE *archivo;
     struct info trabajadores;
@@ -720,9 +712,9 @@ int consulta_departamento(char departamento_f[]){
                     fscanf(archivo, "%s", trabajadores.departamento);
                     fscanf(archivo, "%s", trabajadores.cargo);
                     fscanf(archivo, "%s", trabajadores.fecha);
-                    fscanf(archivo, "%d", &trabajadores.salario);
+                    fscanf(archivo, "%ld", &trabajadores.salario);
 					if ((strcmp(trabajadores.departamento,departamento_f)==0)){
-                    	printf("\n%d %s %s %s %s %s %d\n",trabajadores.cedula,trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
+                    	printf("\n%d %s %s %s %s %s %ld\n",trabajadores.cedula,trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
                 		band_f=1;
 					}
 				}		
@@ -736,9 +728,7 @@ int consulta_departamento(char departamento_f[]){
     return 0;
 }
 
-
 int consulta_sueldo(int sueldo_f){
-    char dato [20],descarte[20];
 	int band_f=0,i,k; 
     FILE *archivo;
     struct info trabajadores;
@@ -758,9 +748,9 @@ int consulta_sueldo(int sueldo_f){
                     fscanf(archivo, "%s", trabajadores.departamento);
                     fscanf(archivo, "%s", trabajadores.cargo);
                     fscanf(archivo, "%s", trabajadores.fecha);
-                    fscanf(archivo, "%d", &trabajadores.salario);
+                    fscanf(archivo, "%ld", &trabajadores.salario);
 					if (trabajadores.salario == sueldo_f){
-                    printf("\n%d %s %s %s %s %s %d\n",trabajadores.cedula,trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
+                    printf("\n%d %s %s %s %s %s %ld\n",trabajadores.cedula,trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
                 	band_f=1;
 					}
 				}		
@@ -774,9 +764,7 @@ int consulta_sueldo(int sueldo_f){
     return 0;
 }
 
-
 int consulta_cargo(char cargo_f[]){
-    char dato [20];
 	int band_f=0,i,j; 
     FILE *archivo;
     struct info trabajadores;
@@ -796,9 +784,9 @@ int consulta_cargo(char cargo_f[]){
                     fscanf(archivo, "%s", trabajadores.departamento);
                     fscanf(archivo, "%s", trabajadores.cargo);
                     fscanf(archivo, "%s", trabajadores.fecha);
-                    fscanf(archivo, "%d", &trabajadores.salario);
+                    fscanf(archivo, "%ld", &trabajadores.salario);
 					if ((strcmp(trabajadores.cargo,cargo_f)==0)){
-                    	printf("\n%d %s %s %s %s %s %d\n",trabajadores.cedula,trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
+                    	printf("\n%d %s %s %s %s %s %ld\n",trabajadores.cedula,trabajadores.nombre, trabajadores.apellido, trabajadores.departamento, trabajadores.cargo, trabajadores.fecha, trabajadores.salario);
                 		band_f=1;
 					}
 				}		
