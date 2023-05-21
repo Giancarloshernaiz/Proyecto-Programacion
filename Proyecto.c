@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <unistd.h>
-#include <locale.h>
-#include <windows.h>
+#include <string.h> // en clase
+#include <stdlib.h> // atoi (para pasar de un string a un numero)
+#include <ctype.h> //  distinguir si un carÃ¡cter es una letra, un nÃºmero o un espacio
+#include <unistd.h> // mensajes en diferentes idiomas
+#include <locale.h> // idioma
+#include <windows.h> // nos permite hacer tareas como crear ventanas, desplegar mensajes en la pantalla, manejar archivos
 void menu();
 void ingresar();
 void consultar();
@@ -25,8 +25,8 @@ struct info {
         char fecha[12];
         int salario;
     };
-char dept[6][20] = {"RRHH", "Consultoria", "Diseño", "Produccion", "Calidad", "Distribucion"};
-char cargo[6][20] = {"Gerente", "Supervisor", "Analista", "Diseñador", "Desarrollador", "Auditor"};
+char dept[6][20] = {"RRHH", "Consultoria", "Diseï¿½o", "Produccion", "Calidad", "Distribucion"};
+char cargo[6][20] = {"Gerente", "Supervisor", "Analista", "Diseï¿½ador", "Desarrollador", "Auditor"};
 char motivo_despido[4][20] = {"Traslado", "Renuncia", "Despido", "Otros"};
 int main(){
     setlocale(LC_ALL, "spanish"); 
@@ -39,18 +39,18 @@ int main(){
 void menu(){
     int numero, op, x = 0;
     char val [20];
-    printf("\n¡Bienvenido al registro de trabajadores de la empresa Future C.A.! \n");
+    printf("\nï¿½Bienvenido al registro de trabajadores de la empresa Future C.A.! \n");
     while (x == 0) {
-        printf("\n+--------- MENÚ ---------+\n");
-        printf("|                        |\n");
-        printf("| [1] Ingresar           |\n");
-        printf("| [2] Consultar          |\n");
-        printf("| [3] Modificar          |\n");
-        printf("| [4] Eliminar           |\n");
-        printf("| [5] Salir              |\n");
-        printf("|                        |\n");
-        printf("+------------------------+\n");
-        printf("Opción: "); 
+        printf("\n+--------- MENï¿½ ---------+\n");
+        printf("|                          |\n");
+        printf("| [1] Ingresar             |\n");
+        printf("| [2] Consultar            |\n");
+        printf("| [3] Modificar            |\n");
+        printf("| [4] Eliminar             |\n");
+        printf("| [5] Salir                |\n");
+        printf("|                          |\n");
+        printf("+--------------------------+\n");
+        printf("Opciï¿½n: "); 
         do{
             scanf("%s", val);
             numero = validar_numero(val);
@@ -73,7 +73,7 @@ void menu(){
                 x = 1; 
                 break;
             default:
-                printf("!Esa opción no es válida!\n");
+                printf("!Esa opciï¿½n no es vï¿½lida!\n");
             }
     }
 }
@@ -83,7 +83,7 @@ void ingresar(){
     FILE *arch;
     int numero, cedula, band = 0;
     if((arch = fopen("trabajadores.in", "a+")) == NULL){
-        printf("¡Error al abrir el archivo!");
+        printf("ï¿½Error al abrir el archivo!");
     }else{
         struct info trabajadores;
         printf("\nIngrese los datos del trabajador\n");
@@ -116,7 +116,7 @@ void ingresar(){
         scanf("%s", trabajadores.nombre);
         printf("Apellido: ");
         scanf("%s", trabajadores.apellido);
-        printf("Departamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseño \n[4] Produccion \n[5] Calidad \n[6] Distribucion \n");
+        printf("Departamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseï¿½o \n[4] Produccion \n[5] Calidad \n[6] Distribucion \n");
         do{
             do{
                 scanf("%s", val);
@@ -127,7 +127,7 @@ void ingresar(){
                 printf("El numero no corresponde a ningun departamento!\nIntente de nuevo: ");
         }while(numero < 1 || numero > 6);
         strcpy(trabajadores.departamento, dept[numero-1]);
-        printf("Cargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseñador \n[5] Desarrollador \n[6] Auditor \n");
+        printf("Cargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseï¿½ador \n[5] Desarrollador \n[6] Auditor \n");
         do{
             do{
                 scanf("%s", val);
@@ -141,7 +141,7 @@ void ingresar(){
 
         do {
             band = 0;
-            printf("Fecha de ingreso (dia-mes-año): ");
+            printf("Fecha de ingreso (dia-mes-aï¿½o): ");
             scanf("%s", val);
             char *dia = strtok(val, "-/ ");
             char *mes = strtok(NULL, "-/ ");
@@ -223,16 +223,16 @@ void consultar(){
     int op, cedula, numero, band = 0,sueldo,departamento;
     char val[20];
     do {
-        printf("\n+-- MÉTODO DE CONSULTA --+\n");
+        printf("\n+-- Mï¿½TODO DE CONSULTA --+\n");
         printf("|                        |\n");
-        printf("| [1] Cédula             |\n");
+        printf("| [1] Cï¿½dula             |\n");
         printf("| [2] Departamento       |\n");
         printf("| [3] Cargo              |\n");
         printf("| [4] Sueldo             |\n");
         printf("| [5] Volver             |\n");
         printf("|                        |\n");
         printf("+------------------------+\n");
-        printf("Opción: ");
+        printf("Opciï¿½n: ");
         do{
             scanf("%s", val);
             numero = validar_numero(val);
@@ -241,7 +241,7 @@ void consultar(){
         switch (op){
         case 1 :
         	system("cls");
-            printf("\nIndique la cédula a consultar: ");
+            printf("\nIndique la cï¿½dula a consultar: ");
             do{
                 scanf("%s", val);
                 numero = validar_numero(val);
@@ -253,7 +253,7 @@ void consultar(){
         	system("cls");
             do{
 				printf("\nIndique el Departamento a consultar: ");
-				printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseño \n[4] Producción \n[5] Calidad \n[6] Distribución \n");
+				printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseï¿½o \n[4] Producciï¿½n \n[5] Calidad \n[6] Distribuciï¿½n\nOpcion: ");
 				do{
                 scanf("%s", val);
                 		numero = validar_numero(val);
@@ -266,7 +266,7 @@ void consultar(){
             system("cls");
 			do{
 				printf("\nIndique el Cargo a consultar: ");
-				printf("\nCargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseñador \n[5] Desarrollador \n[6] Auditor \n");
+				printf("\nCargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseï¿½ador \n[5] Desarrollador \n[6] Auditor\nOpcion: ");
 				do{
                 	scanf("%s", val);
                 	numero = validar_numero(val);
@@ -302,7 +302,7 @@ void consultar(){
 
 int modificar(){
     int i, k, cedula,numero, op, band = 0;
-    char val[20], descarte[20], fecha[12]; 
+    char val[20], fecha[12]; 
     FILE *archivo, *leer;
     
 
@@ -331,7 +331,7 @@ int modificar(){
     }
     fclose(leer);
     
-    printf("\nIndique la cédula del trabajador: ");
+    printf("\nIndique la cï¿½dula del trabajador: ");
     do{
         scanf("%s", val);
         numero = validar_numero(val);
@@ -351,7 +351,7 @@ int modificar(){
         for (i = 0; i < k; i++){
             if (trabajadores[i].cedula == cedula){
                 do{
-                    printf("\n+--- MÉTODO MODIFICAR ---+\n");
+                    printf("\n+--- Mï¿½TODO MODIFICAR ---+\n");
                     printf("|                        |\n");
                     printf("| [1] Nombre             |\n");
                     printf("| [2] Apellido           |\n");
@@ -362,7 +362,7 @@ int modificar(){
                     printf("| [7] Volver             |\n");
                     printf("|                        |\n");
                     printf("+------------------------+\n");
-                    printf("Opción: ");
+                    printf("Opciï¿½n: ");
                     do{
                         scanf("%s", val);
                         numero = validar_numero(val);
@@ -380,7 +380,7 @@ int modificar(){
                             band = 1;
                             break; 
                         case 3:
-                            printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseño \n[4] Produccion \n[5] Calidad \n[6] Distribucion \n");
+                            printf("\nDepartamento: \n[1] RRHH \n[2] Consultoria \n[3] Diseï¿½o \n[4] Produccion \n[5] Calidad \n[6] Distribucion \nOpcion: ");
                             do{
                                 do{
                                     scanf("%s", val);
@@ -394,7 +394,7 @@ int modificar(){
                             band = 1;
                             break;
                         case 4:
-                            printf("Cargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseñador \n[5] Desarrollador \n[6] Auditor \n");
+                            printf("Cargo: \n[1] Gerente \n[2] Supervisor \n[3] Analista \n[4] Diseï¿½ador \n[5] Desarrollador \n[6] Auditor \nOpcion: ");
                             do{
                                 do{
                                     scanf("%s", val);
@@ -409,7 +409,7 @@ int modificar(){
                             break;  
                         case 5:
                             do {
-                                printf("\nFecha de ingreso (dia-mes-año): ");
+                                printf("\nFecha de ingreso (dia-mes-aï¿½o): ");
                                 band = 0;
                                 scanf("%s", val);
                                 char *dia = strtok(val, "-/");
@@ -490,7 +490,7 @@ int modificar(){
                             band = 1;
                             break;
                         default:
-                            printf("¡Esa opción no existe!");
+                            printf("ï¿½Esa opciï¿½n no existe!");
                             break;
                     }
                 }while(band == 0);
@@ -499,7 +499,7 @@ int modificar(){
             fprintf(archivo,"%d %s %s %s %s %s %d\n", trabajadores[i].cedula, trabajadores[i].nombre, trabajadores[i].apellido, trabajadores[i].departamento, trabajadores[i].cargo, trabajadores[i].fecha, trabajadores[i].salario);
         }
         fclose(archivo);
-        printf("\n¡Se ha modificado exitosamente el archivo!\n");
+        printf("\nï¿½Se ha modificado exitosamente el archivo!\n");
     }
     return 0;
 }
@@ -507,7 +507,7 @@ int modificar(){
 
 void eliminar(){
     int i, k,indice=-1, cedula,numero, bandf,re_menu=0;
-    char val[20], descarte[20],confirmacion[10],fecha_despido[12],despido[20]; 
+    char val[20], confirmacion[10],fecha_despido[12],despido[20]; 
     FILE *archivo, *leer, *archivof;
     
     
@@ -554,7 +554,7 @@ void eliminar(){
                     do{
                         if((strcmp(confirmacion,"si")!=0)&&(strcmp(confirmacion,"no")!=0))
                         {
-                            printf("!Ingreso un dato incorrecto, vuelva a intentarlo:!");
+                            printf("!Ingreso un dato incorrecto, vuelva a intentarlo!: ");
                             scanf("%s",confirmacion);	
                         }
                     }while((strcmp(confirmacion,"si")!=0)&&(strcmp(confirmacion,"no")!=0));
@@ -569,7 +569,7 @@ void eliminar(){
             if((strcmp(confirmacion,"si")==0)&&(re_menu==0)){ //codicional para continuar con la eliminacion
                 do { // bucle de horas
                     bandf = 0;
-                    printf("Fecha de retiro (dia-mes-año): "); //ingrese fecha retiro
+                    printf("Fecha de retiro (dia-mes-aï¿½o): "); //ingrese fecha retiro
                     scanf("%s", val);
                     char *dia = strtok(val, "-/ ");
                     char *mes = strtok(NULL, "-/ ");
@@ -641,7 +641,7 @@ void eliminar(){
                     numero = validar_numero(val);
                 }while(numero == 0);
                 numero = atoi(val);
-                if (numero < 1 || numero > 6){
+                if (numero < 1 || numero > 4){
                     printf("El numero no corresponde a ninguna Eliminacion!\nIntente de nuevo: ");
                     }
                 }while(numero < 1 || numero > 4);
@@ -700,18 +700,17 @@ int consulta_cedula(int cedula){
 
 
 int consulta_departamento(char departamento_f[]){
-    char dato [20];
 	int band_f=0,i,j; 
     FILE *archivo;
     struct info trabajadores;
         if((archivo = fopen("trabajadores.in", "r")) == NULL){
-        printf("¡Error al abrir el archivo!");
+        printf("ï¿½Error al abrir el archivo!");
     }else{
         j=comprobar_elementos(&archivo);
     fclose(archivo);
 	}
 	if((archivo = fopen("trabajadores.in", "r")) == NULL){
-        printf("¡Error al abrir el archivo!");
+        printf("ï¿½Error al abrir el archivo!");
     }else{
         		for(i=0;i<j;i++){    
                 	fscanf(archivo, "%d", &trabajadores.cedula);
@@ -732,24 +731,23 @@ int consulta_departamento(char departamento_f[]){
 		return 1;
 	}
     fclose(archivo);
-    printf("\n¡el Departamento indicado no está asociada a ningún trabajador de la empresa!\n");
+    printf("\nï¿½el Departamento indicado no estï¿½ asociada a ningï¿½n trabajador de la empresa!\n");
     return 0;
 }
 
 
 int consulta_sueldo(int sueldo_f){
-    char dato [20],descarte[20];
 	int band_f=0,i,k; 
     FILE *archivo;
     struct info trabajadores;
         if((archivo = fopen("trabajadores.in", "r")) == NULL){
-        printf("¡Error al abrir el archivo!");
+        printf("ï¿½Error al abrir el archivo!");
     }else{
         k=comprobar_elementos(&archivo);
     fclose(archivo);
 	}
 	if((archivo = fopen("trabajadores.in", "r")) == NULL){
-        printf("¡Error al abrir el archivo!");
+        printf("ï¿½Error al abrir el archivo!");
     }else{
         		for(i=0;i<k;i++){    
                 	fscanf(archivo, "%d", &trabajadores.cedula);
@@ -770,24 +768,23 @@ int consulta_sueldo(int sueldo_f){
 				return 1;
 			}
     fclose(archivo);
-    printf("\n¡el sueldo indicado no está asociada a ningún trabajador de la empresa!\n");
+    printf("\nï¿½el sueldo indicado no estï¿½ asociada a ningï¿½n trabajador de la empresa!\n");
     return 0;
 }
 
 
 int consulta_cargo(char cargo_f[]){
-    char dato [20];
 	int band_f=0,i,j; 
     FILE *archivo;
     struct info trabajadores;
         if((archivo = fopen("trabajadores.in", "r")) == NULL){
-        printf("¡Error al abrir el archivo!");
+        printf("ï¿½Error al abrir el archivo!");
     }else{
         j=comprobar_elementos(&archivo);
     fclose(archivo);
 	}
 	if((archivo = fopen("trabajadores.in", "r")) == NULL){
-        printf("¡Error al abrir el archivo!");
+        printf("ï¿½Error al abrir el archivo!");
     }else{
         		for(i=0;i<j;i++){    
                 	fscanf(archivo, "%d", &trabajadores.cedula);
@@ -808,7 +805,7 @@ int consulta_cargo(char cargo_f[]){
 		return 1;
 	}
     fclose(archivo);
-    printf("\n¡el Cargo indicado no está asociada a ningún trabajador de la empresa!\n");
+    printf("\nï¿½el Cargo indicado no estï¿½ asociada a ningï¿½n trabajador de la empresa!\n");
     return 0;
 }
 
